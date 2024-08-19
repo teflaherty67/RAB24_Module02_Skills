@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Command">
+    <Text>RAB24_Module02_Skills - Command 1</Text>
+    <Description>Some description</Description>
+    <Assembly>RAB24_Module02_Skills\RAB24_Module02_Skills.dll</Assembly>
+    <FullClassName>RAB24_Module02_Skills.Command1</FullClassName>
+    <ClientId>6fce2928-fbcd-4ba8-8019-de5b77e2408c</ClientId>
+    <VendorId>com.YOUR COMPANY NAME</VendorId>
+    <VendorDescription>YOUR COMPANY NAME, YOUR COMPANY URL</VendorDescription>
+  </AddIn>
+  <AddIn Type="Command">
+    <Text>RAB24_Module02_Skills - Command 2</Text>
+    <Description>Some description</Description>
+    <Assembly>RAB24_Module02_Skills\RAB24_Module02_Skills.dll</Assembly>
+    <FullClassName>RAB24_Module02_Skills.Command2</FullClassName>
+    <ClientId>fba4389c-67c3-4c73-9d85-5547bf9b341a</ClientId>
+    <VendorId>com.YOUR COMPANY NAME</VendorId>
+    <VendorDescription>YOUR COMPANY NAME, YOUR COMPANY URL</VendorDescription>
+  </AddIn>
+  <AddIn Type="Application">
+    <Name>RAB24_Module02_Skills</Name>
+    <Assembly>RAB24_Module02_Skills\RAB24_Module02_Skills.dll</Assembly>
+    <FullClassName>RAB24_Module02_Skills.App</FullClassName>
+    <ClientId>95f844bf-8635-419f-b20d-9547b50e07ab</ClientId>
+    <VendorId>com.YOUR COMPANY NAME</VendorId>
+    <VendorDescription>YOUR COMPANY NAME, YOUR COMPANY URL</VendorDescription>
+  </AddIn>
+</RevitAddIns>
