@@ -43,6 +43,26 @@
                 }
             }
 
+            // get curve data
+            foreach (CurveElement curCurve in modelCurves)
+            {
+                Curve curve = curCurve.GeometryCurve;
+                XYZ startPoint = curve.GetEndPoint(0);
+                XYZ endPoint = curve.GetEndPoint(1);
+
+                GraphicsStyle curStyle = curCurve.LineStyle as GraphicsStyle;
+
+                Debug.Print(curStyle.Name);
+            }
+
+            // create wall
+            Level newLevel = Level.Create(curDoc, 20);
+            Curve curCurve01 = modelCurves[0].GeometryCurve;
+
+            Wall.Create(curDoc, curCurve01, newLevel.Id, false);
+
+
+
             return Result.Succeeded;
         }
         internal static PushButtonData GetButtonData()
