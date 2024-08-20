@@ -15,6 +15,18 @@
             UIDocument uidoc = uiapp.ActiveUIDocument;
             IList<Element> pickList = uidoc.Selection.PickElementsByRectangle("Select elements");
 
+            TaskDialog.Show("Test", "I selected " + pickList.Count + " elements");
+
+            // filter selected elements for curves
+            List<CurveElement> allCurves = new List<CurveElement>();
+            foreach (Element curElem in pickList)
+            {
+                if (curElem is CurveElement)
+                {
+                    allCurves.Add(curElem as CurveElement);
+                }
+            }
+
 
             return Result.Succeeded;
         }
