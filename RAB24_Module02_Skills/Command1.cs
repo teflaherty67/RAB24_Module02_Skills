@@ -27,6 +27,21 @@
                 }
             }
 
+            // filter selected elements for model curves
+            List<CurveElement> modelCurves = new List<CurveElement>();
+            foreach (Element curElem in pickList)
+            {
+                if (curElem is CurveElement)
+                {
+                    CurveElement curveElem = curElem as CurveElement;
+                    // CurveElement curveElem = (CurveElement)curElem;
+
+                    if(curveElem.CurveElementType == CurveElementType.ModelCurve)
+                    {
+                        modelCurves.Add(curveElem);
+                    }
+                }
+            }
 
             return Result.Succeeded;
         }
