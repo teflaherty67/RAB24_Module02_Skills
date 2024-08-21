@@ -55,12 +55,26 @@
                 Debug.Print(curStyle.Name);
             }
 
-            // create wall
-            Level newLevel = Level.Create(curDoc, 20);
-            Curve curCurve01 = modelCurves[0].GeometryCurve;
+            // create transaction with using statement
+            using (Transaction t = new Transaction(curDoc))
+            {
+                t.Start("Create Revit elements");
 
-            Wall.Create(curDoc, curCurve01, newLevel.Id, false);
+                // create wall
+                Level newLevel = Level.Create(curDoc, 20);
+                Curve curCurve01 = modelCurves[0].GeometryCurve;
 
+                Wall.Create(curDoc, curCurve01, newLevel.Id, false);
+
+                FilteredElementCollector colWallTypes = new FilteredElementCollector(curDoc)
+                    .OfClass(typeof(WallType));
+
+                Curve curCurve2 = modelCurves[1].GeometryCurve;
+                Wall.Create(curDoc, curCurve2, colWallTypes.FirstElementId(), newLevel.Id, 20, 0, false, false);
+
+                t.Commit();
+
+            }
 
 
             return Result.Succeeded;
