@@ -1,4 +1,7 @@
-﻿namespace RAB24_Module02_Skills
+﻿using Autodesk.Revit.DB.Mechanical;
+using Autodesk.Revit.DB.Plumbing;
+
+namespace RAB24_Module02_Skills
 {
     [Transaction(TransactionMode.Manual)]
     public class Command1 : IExternalCommand
@@ -69,8 +72,56 @@
                 FilteredElementCollector colWallTypes = new FilteredElementCollector(curDoc)
                     .OfClass(typeof(WallType));
 
-                Curve curCurve2 = modelCurves[1].GeometryCurve;
-                Wall.Create(curDoc, curCurve2, colWallTypes.FirstElementId(), newLevel.Id, 20, 0, false, false);
+                Curve curCurve02 = modelCurves[1].GeometryCurve;
+                Wall.Create(curDoc, curCurve02, colWallTypes.FirstElementId(), newLevel.Id, 20, 0, false, false);
+
+                // get system types
+                FilteredElementCollector colSysTypes = new FilteredElementCollector(curDoc)
+                    .OfClass(typeof(MEPSystemType));
+
+                // get duct system type
+                MEPSystemType ductSysType = null;
+                foreach (MEPSystemType curType in colSysTypes)
+                {
+                    if (curType.Name == "Supply Air")
+                    {
+                        ductSysType = curType;
+                        break;
+                    }
+                }
+
+                // get duct type
+                FilteredElementCollector colDuctTypes = new FilteredElementCollector(curDoc)
+                    .OfClass(typeof(DuctType));
+
+                // create duct
+                Curve curCurve03 = modelCurves[2].GeometryCurve;
+
+                Duct newDuct = Duct.Create(curDoc, ductSysType.Id, colDuctTypes.FirstElementId(),
+                    newLevel.Id, curCurve03.GetEndPoint(0), curCurve03.GetEndPoint(1));
+
+                // get pipe system type
+                MEPSystemType pipeSysType = null;
+                foreach (MEPSystemType curType in colSysTypes)
+                {
+                    if (curType.Name == "Domsetic Hot Water")
+                    {
+                        pipeSysType = curType;
+                        break;
+                    }
+                }
+
+                // get pipe type
+                FilteredElementCollector colPipeTypes = new FilteredElementCollector(curDoc)
+                    .OfClass(typeof(PipeType));
+
+                // create duct
+                Curve curCurve04 = modelCurves[3].GeometryCurve;
+
+                Pipe newPipe = Pipe.Create(curDoc, pipeSysType.Id, colPipeTypes.FirstElementId(),
+                    newLevel.Id, curCurve04.GetEndPoint(0), curCurve04.GetEndPoint(1));
+
+
 
                 t.Commit();
 
