@@ -73,7 +73,8 @@ namespace RAB24_Module02_Skills
                     .OfClass(typeof(WallType));
 
                 Curve curCurve02 = modelCurves[1].GeometryCurve;
-                Wall.Create(curDoc, curCurve02, colWallTypes.FirstElementId(), newLevel.Id, 20, 0, false, false);
+                WallType myWallType = GetWallTypeByName(curDoc, "2x4");
+                Wall.Create(curDoc, curCurve02, myWallType.Id, newLevel.Id, 20, 0, false, false);
 
                 // get system types
                 FilteredElementCollector colSysTypes = new FilteredElementCollector(curDoc)
@@ -121,15 +122,49 @@ namespace RAB24_Module02_Skills
                 Pipe newPipe = Pipe.Create(curDoc, pipeSysType.Id, colPipeTypes.FirstElementId(),
                     newLevel.Id, curCurve04.GetEndPoint(0), curCurve04.GetEndPoint(1));
 
-
+                // use new methods
+                string testString = MyFirstMethod();
+                MySecondMethod();
+                string testString2 = MyThirdMethod("Hello World!");
 
                 t.Commit();
-
             }
-
 
             return Result.Succeeded;
         }
+
+        internal string MyFirstMethod()
+        {
+            return "This is my first method!";
+        }
+
+        internal void MySecondMethod()
+        {
+            Debug.Print("This is my second method!");
+        }
+
+        internal string MyThirdMethod(string input)
+        {
+            return "This is my third method: " + input;
+        }
+
+        internal WallType GetWallTypeByName(Document curDoc, string typeName)
+        {
+            FilteredElementCollector colWallTypes = new FilteredElementCollector(curDoc)
+                .OfClass(typeof(WallType));
+
+            foreach (WallType curType in colWallTypes)
+            {
+                if (curType.Name == typeName)
+                {
+                    return curType;
+                }
+            }
+
+            return null;
+        }
+
+
         internal static PushButtonData GetButtonData()
         {
             // use this method to define the properties for this command in the Revit ribbon
