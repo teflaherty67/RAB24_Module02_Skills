@@ -127,6 +127,60 @@ namespace RAB24_Module02_Skills
                 MySecondMethod();
                 string testString2 = MyThirdMethod("Hello World!");
 
+                // switch statement
+                int numValue = 5;
+                string numAsString = "";
+
+                switch (numValue)
+                {
+                    case 1:
+                        numAsString = "One";
+                        break;
+
+                    case 2:
+                        numAsString = "Two";
+                        break;
+
+                    case 3:
+                        numAsString = "Three";
+                        break;
+
+                    case 4:
+                        numAsString = "Four";
+                        break;
+
+                    case 5:
+                        numAsString = "Five";
+                        break;
+
+                    default:
+                        numAsString = "Zero";
+                        break;
+                }
+
+                // advanced switch statement
+                Curve curCurve05 = modelCurves[4].GeometryCurve;
+                GraphicsStyle curCurve05GS = modelCurves[4].LineStyle as GraphicsStyle;
+
+                WallType wallType1 = GetWallTypeByName(curDoc, "Storefront");
+                WallType wallType2 = GetWallTypeByName(curDoc, "Exterior - Brcik on CMU");
+
+                switch(curCurve05GS.Name)
+                {
+                    case "<Thin Lines>":
+                        Wall.Create(curDoc, curCurve05, wallType1.Id, newLevel.Id, 20, 0, false, false);
+                        break;
+
+                    case "<Wide Lines>":
+                        Wall.Create(curDoc, curCurve05, wallType2.Id, newLevel.Id, 20, 0, false, false);
+                        break;
+
+                    default:
+                        Wall.Create(curDoc, curCurve05, newLevel.Id, false);
+                        break;
+                }
+
+
                 t.Commit();
             }
 
